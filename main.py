@@ -2,7 +2,6 @@ import cv2, math, time, win32gui, win32api, win32con
 import pynput
 from win32gui import PumpMessages, PostQuitMessage
 import numpy as np
-# from pyautogui import moveTo, position, click, moveRel, PAUSE
 from mss import mss
 import pyautogui, os
 import ctypes
