@@ -1,6 +1,6 @@
 # CSGO-Aimbot-CNN
 CS:GO Aimbot based on convolutional neural networks.
-
+![Showcase](https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/ezgif-5-06587c2150ec.gif)
 # How it works
 The program will capture 160x160 from the screen then it will</br>
 detect whether a ct solider in the cropped frame. If there is it will</br>
@@ -26,4 +26,13 @@ NVIDIA graphic card.</br>
 In order to get a decent frames the model process in a second. I'v only used</br>
 the small fov for detecting opponents.</br>
 
-The higher the sensetivity the more snappy the aimbot is.
+The higher the sensetivity the more snappy the aimbot is.</br>
+
+As of for now the model is only trained for ct opponents.</br> 
+So it's useless against terrorists.
+
+# Future plans
+1) Adding support for aiming on terrorist opponents.
+2) Adding support for sniper rifles.
+3) Adding spray control that will target the head.
+4) Adding keyboard conrtol to toggle aimbot On / Off.
