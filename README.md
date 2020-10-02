@@ -11,7 +11,7 @@ At the top left you will see how many frames the model process in a second (The 
 1) You need to play on fullscreen windowed.
 2) Mouse raw input needs to be disabled for the aimbot to work properly.
 3) Resolution has to be 1920x1080 otherwise you'll need to change values to fit your custom resolution.
-4) Install all dependencies from dependency file.
+4) Install all dependencies from reqiurements.txt file.
 5) Open main.py and go to the game. Place an opponent in your FOV and he will die.
 
 # Compatibility issues
