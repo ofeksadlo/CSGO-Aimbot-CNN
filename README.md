@@ -35,4 +35,4 @@ So it's useless against terrorists.
 1) Adding support for aiming on terrorist opponents.
 2) Adding support for sniper rifles.
 3) Adding spray control that will target the head.
-4) Adding keyboard conrtol to toggle aimbot On / Off.
+4) Adding keyboard shortcut to toggle aimbot On / Off.
