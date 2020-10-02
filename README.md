@@ -1,6 +1,6 @@
 # CSGO-Aimbot-CNN
-CS:GO Aimbot based on convolutional neural networks.
-![Showcase](https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/ezgif-5-06587c2150ec.gif)
+CS:GO Aimbot based on convolutional neural networks.</br>
+![Showcase](https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/ezgif-5-06587c2150ec.gif)</br>
 # How it works
 The program will capture 160x160 from the screen then it will</br>
 detect whether a ct solider in the cropped frame. If there is it will</br>
