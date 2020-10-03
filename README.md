@@ -8,9 +8,10 @@ aim to his head and shoot.</br>
 The entire process will be displayed at your screen.</br>
 At the top left you will see how many frames the model process in a second (The higher the better).
 # How to make it work
-1) You need to play on fullscreen windowed.
+1) You need to play on fullscreen windowed. For the overlays to show and for the frame capturing.
 2) Mouse raw input needs to be disabled for the aimbot to work properly.
-3) Resolution has to be 1920x1080 otherwise you'll need to change values to fit your custom resolution.
+3) Resolution has to be 1920x1080. Otherwise you'll need to change screenWidth and screenHieght values.</br>
+   Notice that fullscreen windowed mode just use native resolution.
 4) Install all dependencies from reqiurements.txt file.
 5) Open main.py and go to the game. Place an opponent in your FOV and he will die.
 
