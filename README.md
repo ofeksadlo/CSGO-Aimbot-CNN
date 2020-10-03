@@ -31,8 +31,15 @@ The higher the sensetivity the more snappy the aimbot is.</br>
 As of for now the model is only trained for ct opponents.</br> 
 So it's useless against terrorists.
 
+The aimbot only tested on Window 10 with 1920x1080 resolution. But should work</br>
+for linux as well.
+
 # Future plans
 1) Adding support for aiming on terrorist opponents.
 2) Adding support for sniper rifles.
 3) Adding spray control that will target the head.
 4) Adding keyboard shortcut to toggle aimbot On / Off.
+
+# Disclaimer
+*This project is for educational purposes only.*
+Developed in Python 3.7.7
