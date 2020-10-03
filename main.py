@@ -75,12 +75,12 @@ def drawText(text, x, y, backgroundColor=green, textColor=blue, textSize=16):
 
 def drawBox(bboxes, boxText='', boxColor=green, textColor=blue):
     boxColorList = list(boxColor)
-    pygame.draw.rect(screen, [0, 255, 0], [880, 460, 160, 160], 1)
+    pygame.draw.rect(screen, [0, 255, 0], [screenWidth/2-fovWidth/2, screenHieght/2-fovHeight/2, fovWidth, fovHeight], 1)
     for box in bboxes:
         x, y ,w ,h = int(box[0]), int(box[1]), int(box[2]), int(box[3])
         if boxText != '':
-            drawText(boxText, x+25 + (screenWidth/2 - 80), y-10 + (screenHieght/2 - 80), backgroundColor=boxColor, textColor=textColor)
-        pygame.draw.rect(screen, boxColorList, [x + (screenWidth/2 - 80), y + (screenHieght/2 - 80), w, h], 3)
+            drawText(boxText, x+25 + (screenWidth/2 - fovWidth/2), y-10 + (screenHieght/2 - fovHeight/2), backgroundColor=boxColor, textColor=textColor)
+        pygame.draw.rect(screen, boxColorList, [x + (screenWidth/2 - fovWidth/2), y + (screenHieght/2 - fovHeight/2), w, h], 3)
 
 
 
@@ -142,17 +142,18 @@ def getClosestTarget(mousePoint, headBoxes):
                 closestBbox = bbox
     return closestBbox
 
-        
+fovWidth = 160
+fovHeight = 160
 aimTarget = True
 shootLockedTarget = True
-monitor = {"top": int(screenHieght/2-80), "left": int(screenWidth/2-80), "width": 160, "height": 160}
+monitor = {"top": int(screenHieght/2-fovHeight/2), "left": int(screenWidth/2-fovWidth/2), "width": fovWidth, "height": fovHeight}
 sct = mss()
 while True:
 
 
     screen.fill(fuchsia)
 
-    pygame.draw.rect(screen, [0, 255, 0], [880, 460, 160, 160], 1)
+    pygame.draw.rect(screen, [0, 255, 0], [screenWidth/2-fovWidth/2, screenHieght/2-fovHeight/2, fovWidth, fovHeight], 1)
 
     timer = cv2.getTickCount()
 
@@ -166,7 +167,7 @@ while True:
     frame = cv2.cvtColor(np.array(frame), cv2.COLOR_RGBA2RGB)
     
 
-    blob = cv2.dnn.blobFromImage(frame, 1/127, (160,160), [0,0,0], 1, crop=False)
+    blob = cv2.dnn.blobFromImage(frame, 1/127, (fovWidth,fovHeight), [0,0,0], 1, crop=False)
     net.setInput(blob)
 
 
@@ -182,7 +183,7 @@ while True:
         drawBox(headBoxes, boxText='Head', boxColor=red, textColor=green)
         closestBbox = getClosestTarget(currentPositionPoint, headBoxes)
         x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
-        set_pos(int(x+(w/2)+ (screenWidth/2 - 80)), int(y+(h/2) + (screenHieght/2-80)))
+        set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
         if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
             pyautogui.click()
     fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
