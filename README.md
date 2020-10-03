@@ -41,5 +41,5 @@ for linux as well.
 4) Adding keyboard shortcut to toggle aimbot On / Off.
 
 # Disclaimer
-*This project is for educational purposes only.*
+**This project is for educational purposes only.**</br>
 Developed in Python 3.7.7
