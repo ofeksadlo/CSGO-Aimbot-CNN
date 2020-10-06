@@ -13,7 +13,13 @@ At the top left you will see how many frames the model process in a second (The 
 3) Resolution has to be 1920x1080. Otherwise you'll need to change screenWidth and screenHieght values.</br>
    Notice that fullscreen windowed mode just use native resolution.
 4) Install all dependencies from reqiurements.txt file.
-5) Open main.py and go to the game. Place an opponent in your FOV and he will die.
+5) Open main.py and go to the game. Place an opponent in your FOV and he will die.</br>
+
+# Keyboard Control
+| Key | Action |
+| ------ | ------ |
+| F5 | Toggle sniper aimbot (Target body) |
+| F6 | Toggle Triggerbot |
 
 # Compatibility issues
 The aimbot is good but not perfect it's based on a custom yolo-tiny model.</br>
@@ -37,9 +43,9 @@ for linux as well.
 
 # Future plans
 1) Adding support for aiming on terrorist opponents.
-2) Adding support for sniper rifles.
+2) ~~Adding support for sniper rifles.~~ (Added)
 3) Adding spray control that will target the head.
-4) Adding keyboard shortcut to toggle aimbot On / Off.
+4) ~~Adding keyboard shortcut to toggle aimbot On / Off.~~ (Added)
 
 # Disclaimer
 **This project is for educational purposes only.**</br>
