@@ -26,7 +26,8 @@ The aimbot is good but not perfect it's based on a custom yolo-tiny model.</br>
 This verison of an aimbot is based completely on CPU. Which in CSGO is a big downside.</br>
 Because CSGO is based heavily on CPU the aimbot and CSGO ending up fighting for performance. So</br>
 consider typing in concole fps_max 60. The reason I don't use GPU for inferencing the model.</br>
-Is because I have AMD graphic card. </br>
+Is because I have AMD graphic card. And although there are some ports to use AMD GPU using</br>
+TensorFlow I've decided to simple develop this aimbot CPU only.</br>
 In theory this aimbot can be much more powerful with a decent</br>
 NVIDIA graphic card.</br>
 
