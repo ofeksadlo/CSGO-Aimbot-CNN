@@ -7,8 +7,9 @@ import pyautogui, os
 import ctypes
 from ctypes import windll
 import pygame
+import keyboard
 
-
+clear = lambda: os.system('cls')
 
 screenWidth = 1920
 screenHieght = 1080
@@ -50,6 +51,33 @@ alwaysOnTop(True)
 font = pygame
 
 SendInput = ctypes.windll.user32.SendInput
+PUL = ctypes.POINTER(ctypes.c_ulong)
+class KeyBdInput(ctypes.Structure):
+    _fields_ = [("wVk", ctypes.c_ushort),
+                ("wScan", ctypes.c_ushort),
+                ("dwFlags", ctypes.c_ulong),
+                ("time", ctypes.c_ulong),
+                ("dwExtraInfo", PUL)]
+class HardwareInput(ctypes.Structure):
+    _fields_ = [("uMsg", ctypes.c_ulong),
+                ("wParamL", ctypes.c_short),
+                ("wParamH", ctypes.c_ushort)]
+class MouseInput(ctypes.Structure):
+    _fields_ = [("dx", ctypes.c_long),
+                ("dy", ctypes.c_long),
+                ("mouseData", ctypes.c_ulong),
+                ("dwFlags", ctypes.c_ulong),
+                ("time", ctypes.c_ulong),
+                ("dwExtraInfo", PUL)]
+class Input_I(ctypes.Union):
+    _fields_ = [("ki", KeyBdInput),
+                ("mi", MouseInput),
+                ("hi", HardwareInput)]
+class Input(ctypes.Structure):
+    _fields_ = [("type", ctypes.c_ulong),
+                ("ii", Input_I)]
+
+
 
 def set_pos(x, y):
     x = 1 + int(x * 65536./screenWidth)
@@ -80,7 +108,7 @@ def drawBox(bboxes, boxText='', boxColor=green, textColor=blue):
         x, y ,w ,h = int(box[0]), int(box[1]), int(box[2]), int(box[3])
         if boxText != '':
             drawText(boxText, x+25 + (screenWidth/2 - fovWidth/2), y-10 + (screenHieght/2 - fovHeight/2), backgroundColor=boxColor, textColor=textColor)
-        pygame.draw.rect(screen, boxColorList, [x + (screenWidth/2 - fovWidth/2), y + (screenHieght/2 - fovHeight/2), w, h], 3)
+        pygame.draw.rect(screen, boxColorList, [x + (screenWidth/2 - fovWidth/2), y + (screenHieght/2 - fovHeight/2), w, h], 1)
 
 
 
@@ -107,13 +135,13 @@ def getOpponentPosition(frame, outputs, fovWidth=150, fovHeight=150):
             scores = det[5:]
             classId = np.argmax(scores)
             confidence = scores[classId]
-            if confidence > 0.8:
+            if confidence > 0.5:
                 w, h = int(det[2] * wT), int(det[3] * hT)
                 x, y = int((det[0]*wT) - (w / 2)), int((det[1] * hT) - (h/2))
                 bbox.append([x,y,w,h])
                 classIds.append(classId)
                 confs.append(float(confidence))
-    indices = cv2.dnn.NMSBoxes(bbox, confs, 0.8, 0.3)
+    indices = cv2.dnn.NMSBoxes(bbox, confs, 0.5, 0.3)
     for i in indices:
         i = i[0]
         box = bbox[i]
@@ -142,21 +170,40 @@ def getClosestTarget(mousePoint, headBoxes):
                 closestBbox = bbox
     return closestBbox
 
+
+counter = 0
+
+clear()
+toggleText = ''
 fovWidth = 160
 fovHeight = 160
 aimTarget = True
 shootLockedTarget = True
+sniperRifle = False
 monitor = {"top": int(screenHieght/2-fovHeight/2), "left": int(screenWidth/2-fovWidth/2), "width": fovWidth, "height": fovHeight}
 sct = mss()
 while True:
 
-
+    
     screen.fill(fuchsia)
 
     pygame.draw.rect(screen, [0, 255, 0], [screenWidth/2-fovWidth/2, screenHieght/2-fovHeight/2, fovWidth, fovHeight], 1)
 
     timer = cv2.getTickCount()
 
+    try:
+        if keyboard.is_pressed('f4'):
+            shootLockedTarget = not shootLockedTarget
+            toggleText = 'TriggerBot = ' + str(shootLockedTarget)
+            counter = 45
+            cv2.waitKey(100)
+        elif keyboard.is_pressed('f3'):
+            sniperRifle = not sniperRifle
+            toggleText = 'Sniper Aimbot = ' + str(sniperRifle)
+            counter = 45
+            cv2.waitKey(100)
+    except:
+        clear()
 
     
     frame = sct.grab(monitor)
@@ -176,17 +223,37 @@ while True:
     outputs = net.forward(outputNames)
 
     headBoxes, bodyBoxes = getOpponentPosition(frame, outputs)
-    allBboxes = []
+
+    if headBoxes is not None:
+        drawBox(headBoxes, boxText='Head', boxColor=(0,0,0), textColor=green)
+        if sniperRifle == False:
+            closestBbox = getClosestTarget(currentPositionPoint, headBoxes)
+            x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
+            set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
+            if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
+                pyautogui.click()
     if bodyBoxes is not None:
         drawBox(bodyBoxes, boxColor=blue)
-    if headBoxes is not None:
-        drawBox(headBoxes, boxText='Head', boxColor=red, textColor=green)
-        closestBbox = getClosestTarget(currentPositionPoint, headBoxes)
-        x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
-        set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
-        if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
-            pyautogui.click()
+        if sniperRifle == True:
+            closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
+            x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
+            set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
+            if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
+                pyautogui.click(button='right')
+                cv2.waitKey(50)
+                pyautogui.click()
+        elif headBoxes is None:
+            closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
+            x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
+            set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
+            if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
+                pyautogui.click()
+
     fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
     drawText('Detection FPS: ' + str(int(fps)),150,25,backgroundColor=fuchsia, textColor=green, textSize=32)
+    if counter > 0:
+        drawText(toggleText,screenWidth/2,75,backgroundColor=fuchsia, textColor=(0,255,0), textSize=64)
+        counter -= 1
     pygame.display.update()
     cv2.waitKey(1)
+    
