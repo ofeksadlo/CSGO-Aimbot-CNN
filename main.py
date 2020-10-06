@@ -192,12 +192,12 @@ while True:
     timer = cv2.getTickCount()
 
     try:
-        if keyboard.is_pressed('f4'):
+        if keyboard.is_pressed('f6'):
             shootLockedTarget = not shootLockedTarget
             toggleText = 'TriggerBot = ' + str(shootLockedTarget)
             counter = 45
             cv2.waitKey(100)
-        elif keyboard.is_pressed('f3'):
+        elif keyboard.is_pressed('f5'):
             sniperRifle = not sniperRifle
             toggleText = 'Sniper Aimbot = ' + str(sniperRifle)
             counter = 45
