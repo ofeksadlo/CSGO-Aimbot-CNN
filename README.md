@@ -49,7 +49,7 @@ At the top left you will see how many frames the model process in a second (The 
 6) Switching between Sniper aimbot to rifle aimbot to pistol aimbot</br>
    based on which weapon used.</br>
    By detecting weapon text:</br>
-   <img src="https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/textDemo.jpg" alt="textDemo" width="100" height="100">
+   <img src="https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/textDemo.jpg" alt="textDemo" width="150" height="150">
 # Disclaimer
 **This project is for educational purposes only.**</br>
 Developed in Python 3.7.7
