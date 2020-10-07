@@ -7,7 +7,7 @@ import pyautogui, os
 import ctypes
 from ctypes import windll
 import pygame
-import keyboard
+import keyboard, mouse
 
 clear = lambda: os.system('cls')
 
@@ -173,13 +173,16 @@ def getClosestTarget(mousePoint, headBoxes):
 
 counter = 0
 
+
+drawOnScreen = True
+
 clear()
 toggleText = ''
 fovWidth = 160
 fovHeight = 160
-aimTarget = True
 shootLockedTarget = True
 sniperRifle = False
+headShotsOnly = False
 monitor = {"top": int(screenHieght/2-fovHeight/2), "left": int(screenWidth/2-fovWidth/2), "width": fovWidth, "height": fovHeight}
 sct = mss()
 while True:
@@ -187,19 +190,30 @@ while True:
     
     screen.fill(fuchsia)
 
-    pygame.draw.rect(screen, [0, 255, 0], [screenWidth/2-fovWidth/2, screenHieght/2-fovHeight/2, fovWidth, fovHeight], 1)
+    if drawOnScreen:
+        pygame.draw.rect(screen, [0, 255, 0], [screenWidth/2-fovWidth/2, screenHieght/2-fovHeight/2, fovWidth, fovHeight], 1)
 
     timer = cv2.getTickCount()
-
+    
     try:
-        if keyboard.is_pressed('f6'):
+        if keyboard.is_pressed('f8'):
             shootLockedTarget = not shootLockedTarget
             toggleText = 'TriggerBot = ' + str(shootLockedTarget)
             counter = 45
             cv2.waitKey(100)
-        elif keyboard.is_pressed('f5'):
+        elif keyboard.is_pressed('f7'):
             sniperRifle = not sniperRifle
             toggleText = 'Sniper Aimbot = ' + str(sniperRifle)
+            counter = 45
+            cv2.waitKey(100)
+        elif keyboard.is_pressed('f6'):
+            drawOnScreen = not drawOnScreen
+            toggleText = 'Drawing On Screen = ' + str(drawOnScreen)
+            counter = 45
+            cv2.waitKey(100)
+        elif keyboard.is_pressed('f5'):
+            headShotsOnly = not headShotsOnly
+            toggleText = 'Headshot Only = ' + str(headShotsOnly)
             counter = 45
             cv2.waitKey(100)
     except:
@@ -224,8 +238,10 @@ while True:
 
     headBoxes, bodyBoxes = getOpponentPosition(frame, outputs)
 
+    # if aimTarget == True:
     if headBoxes is not None:
-        drawBox(headBoxes, boxText='Head', boxColor=(0,0,0), textColor=green)
+        if drawOnScreen:
+            drawBox(headBoxes, boxText='Head', boxColor=(0,0,0), textColor=green)
         if sniperRifle == False:
             closestBbox = getClosestTarget(currentPositionPoint, headBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
@@ -233,7 +249,8 @@ while True:
             if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
                 pyautogui.click()
     if bodyBoxes is not None:
-        drawBox(bodyBoxes, boxColor=blue)
+        if drawOnScreen:
+            drawBox(bodyBoxes, boxColor=blue)
         if sniperRifle == True:
             closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
@@ -242,7 +259,7 @@ while True:
                 pyautogui.click(button='right')
                 cv2.waitKey(50)
                 pyautogui.click()
-        elif headBoxes is None:
+        elif headBoxes is None and headShotsOnly == False:
             closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
             set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
@@ -250,10 +267,11 @@ while True:
                 pyautogui.click()
 
     fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
-    drawText('Detection FPS: ' + str(int(fps)),150,25,backgroundColor=fuchsia, textColor=green, textSize=32)
+    if drawOnScreen:
+        drawText('Detection FPS: ' + str(int(fps)),150,25,backgroundColor=fuchsia, textColor=green, textSize=32)
     if counter > 0:
         drawText(toggleText,screenWidth/2,75,backgroundColor=fuchsia, textColor=(0,255,0), textSize=64)
         counter -= 1
     pygame.display.update()
     cv2.waitKey(1)
-    
+   
