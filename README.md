@@ -18,8 +18,10 @@ At the top left you will see how many frames the model process in a second (The 
 # Keyboard Control
 | Key | Action |
 | ------ | ------ |
-| F5 | Toggle sniper aimbot (Target body) |
-| F6 | Toggle Triggerbot |
+| F5 | Toggle Headshot only (Target heads only) |
+| F6 | Toggle Drawing on screen |
+| F7 | Toggle Sniper aimbot (Target body and right click before firing) |
+| F8 | Toggle Triggerbot |
 
 # Compatibility issues
 The aimbot is good but not perfect it's based on a custom yolo-tiny model.</br>
