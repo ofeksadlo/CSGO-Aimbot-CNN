@@ -47,6 +47,7 @@ for linux as well.
 2) ~~Adding support for sniper rifles.~~ (Added)
 3) Adding spray control that will target the head.
 4) ~~Adding keyboard shortcut to toggle aimbot On / Off.~~ (Added)
+5) Adding spray control crosshair.
 
 # Disclaimer
 **This project is for educational purposes only.**</br>
