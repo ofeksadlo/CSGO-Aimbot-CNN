@@ -47,7 +47,7 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    for linux as well.
 
 # Future plans
-1) ~~Adding support for aiming on terrorist opponents.~~
+1) ~~Adding support for aiming on terrorist opponents.~~ (Added)
 2) ~~Adding support for sniper rifles.~~ (Added)
 3) Adding spray control that will target the head.
 4) ~~Adding keyboard shortcut to toggle aimbot On / Off.~~ (Added)
