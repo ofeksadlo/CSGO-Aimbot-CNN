@@ -3,8 +3,8 @@ CS:GO Aimbot based on convolutional neural networks.</br>
 ![Showcase](https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/ezgif-5-06587c2150ec.gif)</br>
 # How it works
 The program will capture 160x160 from the screen then it will</br>
-detect whether a ct solider in the cropped frame. If there is it will</br>
-aim to his head and shoot.</br>
+detect whether an opponent in the cropped frame. If there is it will</br>
+aim to his head.</br>
 The entire process will be displayed at your screen.</br>
 At the top left you will see how many frames the model process in a second (The higher the better).
 # How to make it work
