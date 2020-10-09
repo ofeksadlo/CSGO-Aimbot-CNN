@@ -27,6 +27,7 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
 | F6 | Toggle Drawing on screen |
 | F7 | Toggle Sniper aimbot (Target body and right click before firing) |
 | F8 | Toggle Triggerbot |
+| F9 | Change target (ct / t) |
 
 # Compatibility issues
 *  The aimbot is good but not perfect it's based on a custom yolo-tiny model.</br>
@@ -46,7 +47,7 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    for linux as well.
 
 # Future plans
-1) Adding support for aiming on terrorist opponents.
+1) ~~Adding support for aiming on terrorist opponents.~~
 2) ~~Adding support for sniper rifles.~~ (Added)
 3) Adding spray control that will target the head.
 4) ~~Adding keyboard shortcut to toggle aimbot On / Off.~~ (Added)
