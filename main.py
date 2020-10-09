@@ -89,7 +89,7 @@ def set_pos(x, y):
     SendInput(1, ctypes.pointer(command), ctypes.sizeof(command))
 
 
-def drawText(text, x, y, backgroundColor=green, textColor=blue, textSize=16):
+def drawText(text, x, y, backgroundColor=green, textColor=blue, textSize=13):
     font = pygame.font.Font('freesansbold.ttf', textSize) 
     # create a text suface object, 
     # on which text is drawn on it. 
@@ -107,7 +107,7 @@ def drawBox(bboxes, boxText='', boxColor=green, textColor=blue):
     for box in bboxes:
         x, y ,w ,h = int(box[0]), int(box[1]), int(box[2]), int(box[3])
         if boxText != '':
-            drawText(boxText, x+25 + (screenWidth/2 - fovWidth/2), y-10 + (screenHieght/2 - fovHeight/2), backgroundColor=boxColor, textColor=textColor)
+            drawText(boxText, x + (screenWidth/2 - fovWidth/2), y-10 + (screenHieght/2 - fovHeight/2), backgroundColor=boxColor, textColor=textColor)
         pygame.draw.rect(screen, boxColorList, [x + (screenWidth/2 - fovWidth/2), y + (screenHieght/2 - fovHeight/2), w, h], 1)
 
 
@@ -117,13 +117,13 @@ pyautogui.PAUSE = 0
 
 
 
-classesNames = ['ct', 'ct_head']
+classesNames = ['ct', 'ct_head', 't', 't_head']
 
 net = cv2.dnn.readNetFromDarknet('config.cfg', 'model.weights')
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
-def getOpponentPosition(frame, outputs, fovWidth=150, fovHeight=150):
+def getOpponentPosition(frame, outputs, opponentTeam='t'):
     hT, wT, cT = frame.shape
     bbox = []
     classIds = []
@@ -146,10 +146,16 @@ def getOpponentPosition(frame, outputs, fovWidth=150, fovHeight=150):
         i = i[0]
         box = bbox[i]
         x, y, w, h = box[0], box[1], box[2], box[3]
-        if classIds[i] == 0:
-            bodyBoxes.append([x,y,w,h])
-        elif classIds[i] == 1:
-            headBoxes.append([x, y, w, h])
+        if opponentTeam == 'ct':
+            if classIds[i] == 0:
+                bodyBoxes.append([x,y,w,h])
+            elif classIds[i] == 1:
+                headBoxes.append([x, y, w, h])
+        if opponentTeam == 't':
+            if classIds[i] == 2:
+                bodyBoxes.append([x,y,w,h])
+            elif classIds[i] == 3:
+                headBoxes.append([x, y, w, h])
     if len(headBoxes) > 0 and len(bodyBoxes) > 0:
         return headBoxes, bodyBoxes
     elif len(headBoxes) > 0:
@@ -171,8 +177,8 @@ def getClosestTarget(mousePoint, headBoxes):
     return closestBbox
 
 
-counter = 0
-
+counter = 1
+shotCounter = 0
 
 drawOnScreen = True
 
@@ -180,9 +186,12 @@ clear()
 toggleText = ''
 fovWidth = 160
 fovHeight = 160
-shootLockedTarget = True
+shootLockedTarget = False
 sniperRifle = False
-headShotsOnly = False
+headShotsOnly = True
+
+opponentTeam = 'ct'
+
 monitor = {"top": int(screenHieght/2-fovHeight/2), "left": int(screenWidth/2-fovWidth/2), "width": fovWidth, "height": fovHeight}
 sct = mss()
 while True:
@@ -216,6 +225,17 @@ while True:
             toggleText = 'Headshot Only = ' + str(headShotsOnly)
             counter = 45
             cv2.waitKey(100)
+        elif keyboard.is_pressed('f9'):
+            if opponentTeam == 'ct':
+                opponentTeam = 't'
+                toggleText = 'Targeting Terrorists'
+                counter = 45
+                cv2.waitKey(100)
+            else:
+                opponentTeam = 'ct'
+                toggleText = 'Targeting Counter-Terrorists'
+                counter = 45
+                cv2.waitKey(100)
     except:
         clear()
 
@@ -236,7 +256,7 @@ while True:
     outputNames = [layerNames[i[0] - 1] for i in net.getUnconnectedOutLayers()]
     outputs = net.forward(outputNames)
 
-    headBoxes, bodyBoxes = getOpponentPosition(frame, outputs)
+    headBoxes, bodyBoxes = getOpponentPosition(frame, outputs, opponentTeam=opponentTeam)
 
     # if aimTarget == True:
     if headBoxes is not None:
@@ -247,14 +267,16 @@ while True:
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
             set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
             if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
-                pyautogui.click()
+                if shotCounter < 1:
+                    pyautogui.click()
+                    shotCounter = 10
     if bodyBoxes is not None:
         if drawOnScreen:
             drawBox(bodyBoxes, boxColor=blue)
         if sniperRifle == True:
             closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
-            set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
+            set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) - 10 + (screenHieght/2-fovHeight/2)))
             if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
                 pyautogui.click(button='right')
                 cv2.waitKey(50)
@@ -274,4 +296,7 @@ while True:
         counter -= 1
     pygame.display.update()
     cv2.waitKey(1)
-   
+    if shotCounter > 0:
+        shotCounter -= 1
+    
+    
