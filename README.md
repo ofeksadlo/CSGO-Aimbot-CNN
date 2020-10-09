@@ -14,6 +14,11 @@ At the top left you will see how many frames the model process in a second (The 
    Notice that fullscreen windowed mode just use native resolution.
 4) Install all dependencies from reqiurements.txt file.
 5) Open main.py and go to the game. Place an opponent in your FOV and he will die.</br>
+**<ins>Tip:</ins>**</br>
+Playing with raw input off may feel like mouse acceleration is on. You'll need to</br>
+disable in windows mouse setting the Enhance pointer precision option.</br>
+<img src="https://i.redd.it/hxvpfgtu6hcz.png" alt="textDemo" width="200" height="250"></br>
+
 
 # Keyboard Control
 | Key | Action |
