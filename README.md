@@ -41,8 +41,6 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
 *  In order to get a decent frames the model process in a second. I'v only used</br>
    the small fov for detecting opponents.</br>
 *  The higher the sensetivity the more snappy the aimbot is.</br>
-*  As of for now the model is only trained for ct opponents.</br> 
-   So it's useless against terrorists.
 *  The aimbot only tested on Window 10 with 1920x1080 resolution. But should work</br>
    for linux as well.
 
