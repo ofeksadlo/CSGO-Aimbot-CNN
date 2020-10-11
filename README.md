@@ -13,7 +13,7 @@ At the top left you will see how many frames the model process in a second (The 
 3) Resolution has to be 1920x1080. Otherwise you'll need to change screenWidth and screenHieght values.</br>
    Notice that fullscreen windowed mode just use native resolution.
 4) Install all dependencies from reqiurements.txt file.
-5) Open main.py and go to the game. Place an opponent in your FOV and he will die.</br>
+5) Open main.py and go to the game. Place an opponent in your FOV and your crosshair will be locked to his head.</br>
 **<ins>Tip:</ins>**</br>
 Playing with raw input off may feel like mouse acceleration is on. You'll need to</br>
 disable in windows mouse setting the Enhance pointer precision option.</br>
