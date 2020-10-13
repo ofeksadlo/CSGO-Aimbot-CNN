@@ -38,7 +38,7 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    TensorFlow I've decided to simple develop this aimbot CPU only.</br>
    In theory this aimbot can be much more powerful with a decent</br>
    NVIDIA graphic card.</br>
-*  In order to get a decent frames the model process in a second. I'v only used</br>
+*  In order to get a decent frames the model process in a second. I've only used</br>
    the small fov for detecting opponents.</br>
    You can tweak FOV but both values has to be the same.</br>
    And be a multiple of 32.</br>
