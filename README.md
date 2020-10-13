@@ -40,9 +40,14 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    NVIDIA graphic card.</br>
 *  In order to get a decent frames the model process in a second. I'v only used</br>
    the small fov for detecting opponents.</br>
+   You can tweak FOV but both values has to be the same.</br>
+   And be a multiple of 32.</br>
+   I found the limit to be 128x128. Getting 60 fps on my cpu!</br>
+   below that and the detections won't work.</br>
 *  The higher the sensetivity the more snappy the aimbot is.</br>
+   After some testing I've found the middle ground to be 1.5 on 800dpi.
 *  The aimbot only tested on Window 10 with 1920x1080 resolution. But should work</br>
-   for linux as well.
+   on other operating systems aswell.
 
 # Future plans
 1) ~~Adding support for aiming on terrorist opponents.~~ (Added)
