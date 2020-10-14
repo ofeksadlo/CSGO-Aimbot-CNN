@@ -14,6 +14,7 @@ At the top left you will see how many frames the model process in a second (The 
    Notice that fullscreen windowed mode just use native resolution.
 4) Install all dependencies from reqiurements.txt file.
 5) Open main.py and go to the game. Place an opponent in your FOV and your crosshair will be locked to his head.</br>
+   For playing I would pick the aimbotOnly.py because the drawing slows the aimbot a little.</br>
 **<ins>Tip:</ins>**</br>
 Playing with raw input off may feel like mouse acceleration is on. You'll need to</br>
 disable in windows mouse setting the Enhance pointer precision option.</br>
