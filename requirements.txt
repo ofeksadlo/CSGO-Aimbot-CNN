@@ -1,5 +1,4 @@
-win32gui
-win32api
+pywin32
 opencv-contrib-python
 pynput
 numpy
