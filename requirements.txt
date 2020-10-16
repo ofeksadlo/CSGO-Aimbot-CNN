@@ -4,3 +4,4 @@ pynput
 numpy
 pyautogui
 pygame
+mss
