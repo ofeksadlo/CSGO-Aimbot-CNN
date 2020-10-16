@@ -5,3 +5,5 @@ numpy
 pyautogui
 pygame
 mss
+keyboard
+mouse
