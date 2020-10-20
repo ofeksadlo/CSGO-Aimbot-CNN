@@ -61,6 +61,7 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    By detecting weapon text:</br>
    <img src="https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/textDemo.jpg" alt="textDemo" width="150" height="150">
 7) Improve detection time using GPU. (Currently in develop with DirectML and tensorflow for AMD utilization)
+8) Adding aim key
 # Disclaimer
 **This project is for educational purposes only.**</br>
 Developed in Python 3.7.7
