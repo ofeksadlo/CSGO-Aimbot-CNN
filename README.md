@@ -58,17 +58,16 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    they aren't good enough so I'm gonna implement my own.
 
 # Future plans
-1) ~~Adding support for aiming on terrorist opponents.~~ (Added)
-2) ~~Adding support for sniper rifles.~~ (Added)
-3) Adding spray control that will target the head.
-4) ~~Adding keyboard shortcut to toggle aimbot On / Off.~~ (Added)
-5) Adding spray control crosshair.
-6) Switching between Sniper aimbot to rifle aimbot to pistol aimbot</br>
+- [x] Adding support for aiming on terrorist opponents.
+- [x] Adding support for sniper rifles
+- [ ] Adding spray control that will target the head
+- [x] Adding keyboard shortcut to toggle aimbot On / Off.
+- [ ] Adding spray control crosshair.
+- [ ] Switching between Sniper aimbot to rifle aimbot to pistol aimbot</br>
    based on which weapon used.</br>
    By detecting weapon text:</br>
    <img src="https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/textDemo.jpg" alt="textDemo" width="150" height="150">
-7) Improve detection time using GPU. (Currently in develop with DirectML and tensorflow for AMD utilization)
-8) Adding aim key
+- [ ] Adding aim key
 # Disclaimer
 **This project is for educational purposes only.**</br>
 Developed in Python 3.7.7
