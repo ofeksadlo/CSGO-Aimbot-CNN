@@ -8,7 +8,9 @@ aim to his head.</br>
 The entire process will be displayed at your screen.</br>
 At the top left you will see how many frames the model process in a second (The higher the better).
 # How to make it work
-[Download weights](https://drive.google.com/uc?id=1jfCu4rvpYi_qGp9rkexXwRasBCNp0jhh&export=download) and extract in CSGO-Aimbot-CNN folder.
+<ins>**22/10/2020 Update:**</ins></br>
+[Download weights](https://drive.google.com/uc?id=1jfCu4rvpYi_qGp9rkexXwRasBCNp0jhh&export=download) and extract in CSGO-Aimbot-CNN folder.</br>
+GPU aimbot still under development but you can test it out now.
 1) You need to play on fullscreen windowed. For the overlays to show and for the frame capturing.
 2) **Mouse raw input needs to be disabled** for the aimbot to work properly.
 3) Resolution has to be 1920x1080. Otherwise you'll need to change screenWidth and screenHieght values.</br>
