@@ -13,7 +13,6 @@ import tensorflow as tf
 clear = lambda: os.system('cls')
 clear()
 
-sess = tf.keras.backend.get_session()
 physical_devices = tf.config.experimental.list_physical_devices('DML')
 if len(physical_devices) > 0:
     print('You have a compatible GPU for beta tensorflow aimbot.')
