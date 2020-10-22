@@ -8,9 +8,19 @@ import ctypes
 from ctypes import windll
 import pygame
 import keyboard, mouse
+import tensorflow as tf
 
 clear = lambda: os.system('cls')
+clear()
 
+sess = tf.keras.backend.get_session()
+physical_devices = tf.config.experimental.list_physical_devices('DML')
+if len(physical_devices) > 0:
+    print('You have a compatible GPU for beta tensorflow aimbot.')
+    if input('Would you like to launch beta tensorflow aimbot (y = Yes / n = No): ') == 'y':
+        exec(open('aimbotTensorflow.py').read())
+clear()
+print('Launching aimbot on CPU...')
 screenWidth = 1920
 screenHieght = 1080
 
@@ -182,7 +192,6 @@ shotCounter = 0
 
 drawOnScreen = True
 
-clear()
 toggleText = ''
 fovWidth = 160
 fovHeight = 160
@@ -194,6 +203,10 @@ opponentTeam = 'ct'
 
 monitor = {"top": int(screenHieght/2-fovHeight/2), "left": int(screenWidth/2-fovWidth/2), "width": fovWidth, "height": fovHeight}
 sct = mss()
+
+print('Aimbot Enabled')
+print('FOV Size: ' + str(fovWidth) + 'x' + str(fovHeight))
+
 while True:
 
     
@@ -237,7 +250,7 @@ while True:
                 counter = 45
                 cv2.waitKey(100)
     except:
-        clear()
+        counter = 0
 
     
     frame = sct.grab(monitor)
@@ -298,5 +311,3 @@ while True:
     cv2.waitKey(1)
     if shotCounter > 0:
         shotCounter -= 1
-    
-    
