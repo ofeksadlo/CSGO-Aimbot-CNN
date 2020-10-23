@@ -7,3 +7,4 @@ pygame
 mss
 keyboard
 mouse
+tensorflow-directml
