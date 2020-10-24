@@ -26,13 +26,13 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
 
 
 # Keyboard Control
-| Key | Action |
-| ------ | ------ |
-| F5 | Toggle Headshot only (Target heads only) |
-| F6 | Toggle Drawing on screen |
-| F7 | Toggle Sniper aimbot (Target body only if trigger on it will right click before firing) |
-| F8 | Toggle Triggerbot |
-| F9 | Change target (ct / t) |
+| Key | Action | Default
+| ------ | ------ | ------ |
+| F5 | Toggle Headshot only (Target heads only) | On |
+| F6 | Toggle Drawing on screen | On |
+| F7 | Toggle Sniper aimbot (Target body only if trigger on it will right click before firing) | Off |
+| F8 | Toggle Triggerbot | Off |
+| F9 | Change target (ct / t) | ct |
 
 # Compatibility issues
 *  In order to get a decent frames the model process in a second. I've only used</br>
