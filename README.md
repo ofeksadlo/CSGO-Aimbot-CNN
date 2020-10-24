@@ -14,7 +14,7 @@ GPU aimbot still under development but you can test it out now. </br>
 Support and tested on AMD RX480 but should work for NVIDIA as well.
 1) You need to play on fullscreen windowed. For the overlays to show and for the frame capturing.
 2) **Mouse raw input needs to be disabled** for the aimbot to work properly.
-3) Resolution has to be 1920x1080. Otherwise you'll need to change screenWidth and screenHieght values.</br>
+3) Resolution has to be 1920x1080. Otherwise you'll need to change screenWidth and screenHeight values.</br>
    Notice that fullscreen windowed mode just use native resolution.
 4) Install all dependencies from reqiurements.txt file.
 5) Open main.py and go to the game. Place an opponent in your FOV and your crosshair will be locked to his head.</br>
