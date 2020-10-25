@@ -7,11 +7,18 @@ detect whether an opponent in the cropped frame. If there is it will</br>
 aim to his head.</br>
 The entire process will be displayed at your screen.</br>
 At the top left you will see how many frames the model process in a second (The higher the better).
-# How to make it work
+# GPU Support
 <ins>**22/10/2020 Update:**</ins></br>
 [Download weights](https://drive.google.com/uc?id=1jfCu4rvpYi_qGp9rkexXwRasBCNp0jhh&export=download) and extract in CSGO-Aimbot-CNN folder.</br>
 GPU aimbot still under development but you can test it out now. </br>
-Support and tested on AMD RX480 but should work for NVIDIA as well.
+Support and tested on AMD RX480 but should work for NVIDIA as well.</br>
+<ins>**25/10/2020 Update:**</ins></br>
+After some testing although the efficence is way better using GPU.</br>
+The yolov3 converted to tensorflow is way less accurate than pure darknet weights.</br>
+So bad that with terrorist it barley works.</br>
+I suspect the accuracy get lost in the conversion. Currently I am looking</br>
+for a better conversion method to improve results.
+# How to make it work
 1) You need to play on fullscreen windowed. For the overlays to show and for the frame capturing.
 2) **Mouse raw input needs to be disabled** for the aimbot to work properly.
 3) Resolution has to be 1920x1080. Otherwise you'll need to change screenWidth and screenHeight values.</br>
