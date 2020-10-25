@@ -17,7 +17,7 @@ physical_devices = tf.config.experimental.list_physical_devices('DML')
 if len(physical_devices) > 0:
     print('You have a compatible GPU for beta tensorflow aimbot.')
     if input('Would you like to launch beta tensorflow aimbot (y = Yes / n = No): ') == 'y':
-        exec(open('Assets/aimbotTensorflow.py').read())
+        exec(open('aimbotTensorflow.py').read())
 clear()
 print('Launching aimbot on CPU...')
 screenWidth = 1920
