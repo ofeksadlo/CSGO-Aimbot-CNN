@@ -11,7 +11,7 @@ At the top left you will see how many frames the model process in a second (The 
 <ins>**22/10/2020 Update:**</ins></br>
 [Download weights](https://drive.google.com/uc?id=1jfCu4rvpYi_qGp9rkexXwRasBCNp0jhh&export=download) and extract in CSGO-Aimbot-CNN folder.</br>
 GPU aimbot still under development but you can test it out now. </br>
-Support and tested on AMD RX480 but should work for NVIDIA as well.</br>
+Support and tested on AMD RX480 and on GeForce GTX1050.</br>
 <ins>**25/10/2020 Update:**</ins></br>
 After some testing although the efficence is way better using GPU.</br>
 The yolov3 converted to tensorflow is way less accurate than pure darknet weights.</br>
