@@ -13,8 +13,7 @@ import pyautogui
 import ctypes, pynput, math
 
 clear = lambda: os.system('cls')
-clear()
-print('Launching aimbot on GPU...')
+
 
 
 SendInput = ctypes.windll.user32.SendInput
@@ -141,7 +140,8 @@ def main(_argv):
     monitor = {"top": int(screenHeight/2-fovSize/2), "left": int(screenWidth/2-fovSize/2), "width": fovSize, "height": fovSize}
 
     sct = mss()
-    
+    clear()
+    print('Launching aimbot on GPU...')
     print('Aimbot Enabled')
     print('FOV Size: ' + str(fovSize) + 'x' + str(fovSize))
     while True:
