@@ -1,11 +1,11 @@
 from absl import app
 import cv2
 import tensorflow as tf
-from yolov3_tf2.models import (
+from assets.yolov3_tf2.models import (
     YoloV3Tiny
 )
-from yolov3_tf2.dataset import transform_images
-from yolov3_tf2.utils import draw_outputs, get_class_colors
+from assets.yolov3_tf2.dataset import transform_images
+from assets.yolov3_tf2.utils import draw_outputs, get_class_colors
 import os
 import numpy as np
 from mss import mss
@@ -127,7 +127,7 @@ def main(_argv):
     if len(physical_devices) > 0:
         tf.config.experimental.set_memory_growth(physical_devices[0], True)
     yolo = YoloV3Tiny(classes=4)
-    yolo.load_weights('./checkpoints/config_yolov3_final.tf')
+    yolo.load_weights('./assets/checkpoints/config_yolov3_final.tf')
     class_names = ['ct', 'ct_head', 't', 't_head']
     # class_colors = [(51,255,255), (0,244,244), (255,51,51), (204,0,0)]
 
