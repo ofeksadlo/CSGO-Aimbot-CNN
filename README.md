@@ -1,6 +1,6 @@
 # CSGO-Aimbot-CNN
 CS:GO Aimbot based on convolutional neural networks.</br>
-![Showcase](https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/ezgif-5-06587c2150ec.gif)</br>
+![Showcase](https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/example/showcase.gif)</br>
 # How it works
 The program will capture 160x160 from the screen then it will</br>
 detect whether an opponent in the cropped frame. If there is it will</br>
@@ -69,7 +69,7 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
 - [ ] Switching between Sniper aimbot to rifle aimbot to pistol aimbot</br>
    based on which weapon used.</br>
    By detecting weapon text:</br>
-   <img src="https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/textDemo.jpg" alt="textDemo" width="150" height="150">
+   <img src="https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/example/textDemo.jpg" alt="textDemo" width="150" height="150">
 - [ ] Adding aim key
 - [ ] Accelerating detection time using GPU (Currently in develop with DirectML to support AMD and NVIDIA)
 # Disclaimer
