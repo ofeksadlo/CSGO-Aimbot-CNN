@@ -61,7 +61,7 @@ pyautogui.PAUSE = 0
 
 classesNames = ['ct', 'ct_head', 't', 't_head']
 
-net = cv2.dnn.readNetFromDarknet('config.cfg', 'model.weights')
+net = cv2.dnn.readNetFromDarknet('../model/config.cfg', '../model/model.weights')
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
