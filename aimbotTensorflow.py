@@ -127,7 +127,14 @@ def main(_argv):
     if len(physical_devices) > 0:
         tf.config.experimental.set_memory_growth(physical_devices[0], True)
     yolo = YoloV3Tiny(classes=4)
-    yolo.load_weights('./assets/checkpoints/config_yolov3_final.tf')
+    try:
+        yolo.load_weights('./assets/checkpoints/config_yolov3_final.tf')
+    except:
+        clear()
+        print('Error\n-----\n')
+        print('Download tensorflow weights from repository and extract them to assets folder.')
+        input('Press enter to launch CPU version...')
+        exit(0)
     class_names = ['ct', 'ct_head', 't', 't_head']
     # class_colors = [(51,255,255), (0,244,244), (255,51,51), (204,0,0)]
 
