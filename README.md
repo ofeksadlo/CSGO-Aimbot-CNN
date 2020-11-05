@@ -72,6 +72,7 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    <img src="https://github.com/ofeksadlo/CSGO-Aimbot-CNN/blob/main/example/textDemo.jpg" alt="textDemo" width="150" height="150">
 - [ ] Adding aim key
 - [ ] Accelerating detection time using GPU (Currently in develop with DirectML to support AMD and NVIDIA)
+- [ ] Improving results with Object Tracking
 # Disclaimer
 **This project is for educational purposes only.**</br>
 Developed in Python 3.7.7
