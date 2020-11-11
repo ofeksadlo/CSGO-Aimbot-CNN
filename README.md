@@ -52,6 +52,8 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    After some testing I've found the middle ground to be 1.5 on 800dpi.
 *  The aimbot only tested on Window 10 with 1920x1080 resolution. But should work</br>
    on other operating systems aswell.
+*  If you ran into `No matching distribution found for tensorflow-directml`</br>
+   trying to install tensorflow-directml. You need to install Python 3.7.7 Windows x86-64
 # Bugs
 1) When more than one target in the FOV the aimbot locking to both target at same time.</br>
    Even though we do calculate the distance between the target. If the target lost because</br>
@@ -75,4 +77,4 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
 - [ ] Improving results with Object Tracking
 # Disclaimer
 **This project is for educational purposes only.**</br>
-Developed in Python 3.7.7
+Developed in Python 3.7.7 Windows x86-64
