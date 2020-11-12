@@ -199,7 +199,7 @@ while True:
             closestBbox = getClosestTarget(currentPositionPoint, headBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
             set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
-            if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
+            if cur_x > x+(screenWidth/2 - fovWidth/2) and cur_x < x+(screenWidth/2 - fovWidth/2)+w and cur_y > y+(screenHieght/2 - fovHeight/2) and cur_y < y+(screenHieght/2 - fovHeight/2)+h and shootLockedTarget == True:
                 if shotCounter < 1:
                     pyautogui.click()
                     shotCounter = 10
@@ -208,7 +208,7 @@ while True:
             closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
             set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) - 10 + (screenHieght/2-fovHeight/2)))
-            if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
+            if cur_x > x+(screenWidth/2 - fovWidth/2) and cur_x < x+(screenWidth/2 - fovWidth/2)+w and cur_y > y+(screenHieght/2 - fovHeight/2) and cur_y < y+(screenHieght/2 - fovHeight/2)+h and shootLockedTarget == True:
                 # pyautogui.click(button='right')
                 # cv2.waitKey(50)
                 # pyautogui.click()
