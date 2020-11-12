@@ -125,8 +125,8 @@ shotCounter = 0
 
 clear()
 toggleText = ''
-fovWidth = 160
-fovHeight = 160
+fovWidth = 96
+fovHeight = 96
 shootLockedTarget = False
 sniperRifle = False
 headShotsOnly = True
@@ -217,7 +217,7 @@ while True:
             closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
             set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
-            if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
+            if cur_x > x+(screenWidth/2 - fovWidth/2) and cur_x < x+(screenWidth/2 - fovWidth/2)+w and cur_y > y+(screenHieght/2 - fovHeight/2) and cur_y < y+(screenHieght/2 - fovHeight/2)+h and shootLockedTarget == True:
                 pyautogui.click()
     cv2.waitKey(1)
     if shotCounter > 0:
