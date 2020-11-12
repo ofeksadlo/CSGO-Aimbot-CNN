@@ -6,14 +6,64 @@ from mss import mss
 import pyautogui, os
 import ctypes
 from ctypes import windll
+import pygame
 import keyboard, mouse
 
+gpuModelsInstalledFlag = False
+try:
+    import tensorflow as tf
+    gpuModelsInstalledFlag = True
+except:
+    print('You need to install tensorflow-directml for GPU utilization.')
 clear = lambda: os.system('cls')
+clear()
 
+if gpuModelsInstalledFlag == True:
+    physical_devices = tf.config.experimental.list_physical_devices('DML')
+    if len(physical_devices) > 0:
+        print('You have a compatible GPU for beta tensorflow aimbot.')
+        if input('Would you like to launch beta tensorflow aimbot (y = Yes): ') == 'y':
+            os.system('aimbotTensorflow.py')
+#clear()
+print('Launching aimbot on CPU...')
 screenWidth = 1920
 screenHieght = 1080
 
+x = 0
+y = 0
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 
+fpsClock = pygame.time.Clock()
+pygame.init()
+screen = pygame.display.set_mode((1920, 1080), pygame.HWSURFACE) # For borderless, use pygame.NOFRAME
+done = False
+fuchsia = (255, 0, 128)  # Transparency color
+dark_red = (139, 0, 0)
+blue = (0,0,255)
+red = (255,0,0)
+green = (0,255,0)
+# Set window transparency color
+hwnd = pygame.display.get_wm_info()["window"]
+win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE,
+                       win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)
+win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 0, win32con.LWA_COLORKEY)
+
+SetWindowPos = windll.user32.SetWindowPos
+
+NOSIZE = 1
+NOMOVE = 2
+TOPMOST = -1
+NOT_TOPMOST = -2
+
+def alwaysOnTop(yesOrNo):
+    zorder = (NOT_TOPMOST, TOPMOST)[yesOrNo] # choose a flag according to bool
+    hwnd = pygame.display.get_wm_info()['window'] # handle to the window
+    SetWindowPos(hwnd, zorder, 0, 0, 0, 0, NOMOVE|NOSIZE)
+
+alwaysOnTop(True)
+
+
+font = pygame
 
 SendInput = ctypes.windll.user32.SendInput
 PUL = ctypes.POINTER(ctypes.c_ulong)
@@ -54,6 +104,29 @@ def set_pos(x, y):
     SendInput(1, ctypes.pointer(command), ctypes.sizeof(command))
 
 
+def drawText(text, x, y, backgroundColor=green, textColor=blue, textSize=13):
+    font = pygame.font.Font('freesansbold.ttf', textSize) 
+    # create a text suface object, 
+    # on which text is drawn on it. 
+    fontText = font.render(text, True, textColor, backgroundColor) 
+    # create a rectangular object for the 
+    # text surface object 
+    textRect = fontText.get_rect()  
+    # set the center of the rectangular object. 
+    textRect.center = (x, y) 
+    screen.blit(fontText, textRect)
+
+def drawBox(bboxes, boxText='', boxColor=green, textColor=blue):
+    boxColorList = list(boxColor)
+    pygame.draw.rect(screen, [0, 255, 0], [screenWidth/2-fovWidth/2, screenHieght/2-fovHeight/2, fovWidth, fovHeight], 1)
+    for box in bboxes:
+        x, y ,w ,h = int(box[0]), int(box[1]), int(box[2]), int(box[3])
+        if boxText != '':
+            drawText(boxText, x + (screenWidth/2 - fovWidth/2), y-10 + (screenHieght/2 - fovHeight/2), backgroundColor=boxColor, textColor=textColor)
+        pygame.draw.rect(screen, boxColorList, [x + (screenWidth/2 - fovWidth/2), y + (screenHieght/2 - fovHeight/2), w, h], 1)
+
+
+
 pyautogui.PAUSE = 0
 
 
@@ -61,7 +134,7 @@ pyautogui.PAUSE = 0
 
 classesNames = ['ct', 'ct_head', 't', 't_head']
 
-net = cv2.dnn.readNetFromDarknet('../model/config.cfg', '../model/model.weights')
+net = cv2.dnn.readNetFromDarknet('model/config.cfg', 'model/model.weights')
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
@@ -108,6 +181,40 @@ def getOpponentPosition(frame, outputs, opponentTeam='t'):
         return None, None
 
 
+def trackBox(frame, bbox):
+    tracker = cv2.TrackerMOSSE_create()
+    tracker.init(frame, bbox)
+
+    while True:
+        screen.fill(fuchsia)
+        if drawOnScreen:
+            pygame.draw.rect(screen, [0, 255, 0], [screenWidth/2-fovWidth/2, screenHieght/2-fovHeight/2, fovWidth, fovHeight], 1)
+        frame = sct.grab(monitor)
+        frame = cv2.cvtColor(np.array(frame), cv2.COLOR_RGBA2BGR)
+        ret, bbox = tracker.update(frame)
+        if ret == False:
+            break
+        cur_x, cur_y= pyautogui.position()
+        x, y, w, h= bbox[0], bbox[1], bbox[2], bbox[3]
+        if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h:
+            if shootLockedTarget == True:
+                pyautogui.click()
+            break
+        else:
+            drawBox([bbox])
+            set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
+        # fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
+        # if drawOnScreen:
+        #     drawText('Detection FPS: ' + str(int(fps)),150,25,backgroundColor=fuchsia, textColor=green, textSize=32)
+        # pygame.display.update()
+        # cv2.waitKey(1)
+            
+
+
+
+
+
+
 def getClosestTarget(mousePoint, headBoxes):
     distance = math.sqrt( ((mousePoint[0]-headBoxes[0][0])**2)+((mousePoint[1]-headBoxes[0][1])**2) )
     closestBbox = headBoxes[0]
@@ -122,8 +229,8 @@ def getClosestTarget(mousePoint, headBoxes):
 counter = 1
 shotCounter = 0
 
+drawOnScreen = True
 
-clear()
 toggleText = ''
 fovWidth = 96
 fovHeight = 96
@@ -135,9 +242,21 @@ opponentTeam = 'ct'
 
 monitor = {"top": int(screenHieght/2-fovHeight/2), "left": int(screenWidth/2-fovWidth/2), "width": fovWidth, "height": fovHeight}
 sct = mss()
+
+print('Aimbot Enabled')
+print('FOV Size: ' + str(fovWidth) + 'x' + str(fovHeight))
+
+
+
 while True:
 
+    
+    screen.fill(fuchsia)
 
+    if drawOnScreen:
+        pygame.draw.rect(screen, [0, 255, 0], [screenWidth/2-fovWidth/2, screenHieght/2-fovHeight/2, fovWidth, fovHeight], 1)
+
+    timer = cv2.getTickCount()
     
     try:
         if keyboard.is_pressed('f8'):
@@ -172,7 +291,7 @@ while True:
                 counter = 45
                 cv2.waitKey(100)
     except:
-        clear()
+        counter = 0
 
     
     frame = sct.grab(monitor)
@@ -191,12 +310,16 @@ while True:
     outputNames = [layerNames[i[0] - 1] for i in net.getUnconnectedOutLayers()]
     outputs = net.forward(outputNames)
 
-    headBoxes, bodyBoxes = getOpponentPosition(frame, outputs, opponentTeam=opponentTeam)
 
+    headBoxes, bodyBoxes = getOpponentPosition(frame, outputs, opponentTeam=opponentTeam)
     # if aimTarget == True:
     if headBoxes is not None:
+        if drawOnScreen:
+            drawBox(headBoxes, boxText='Head', boxColor=(0,0,0), textColor=green)
         if sniperRifle == False:
             closestBbox = getClosestTarget(currentPositionPoint, headBoxes)
+            closestBbox = closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
+            # trackBox(frame, closestBbox)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
             set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
             if cur_x > x+(screenWidth/2 - fovWidth/2) and cur_x < x+(screenWidth/2 - fovWidth/2)+w and cur_y > y+(screenHieght/2 - fovHeight/2) and cur_y < y+(screenHieght/2 - fovHeight/2)+h and shootLockedTarget == True:
@@ -204,23 +327,30 @@ while True:
                     pyautogui.click()
                     shotCounter = 10
     if bodyBoxes is not None:
+        if drawOnScreen:
+            drawBox(bodyBoxes, boxColor=blue)
         if sniperRifle == True:
             closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
             set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) - 10 + (screenHieght/2-fovHeight/2)))
             if cur_x > x+(screenWidth/2 - fovWidth/2) and cur_x < x+(screenWidth/2 - fovWidth/2)+w and cur_y > y+(screenHieght/2 - fovHeight/2) and cur_y < y+(screenHieght/2 - fovHeight/2)+h and shootLockedTarget == True:
-                # pyautogui.click(button='right')
-                # cv2.waitKey(50)
-                # pyautogui.click()
-                pyautogui.press('Q', presses=2, interval=0.1)
+                pyautogui.click(button='right')
+                cv2.waitKey(50)
+                pyautogui.click()
         elif headBoxes is None and headShotsOnly == False:
             closestBbox = getClosestTarget(currentPositionPoint, bodyBoxes)
             x, y, w, h= closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
             set_pos(int(x+(w/2)+ (screenWidth/2 - fovWidth/2)), int(y+(h/2) + (screenHieght/2-fovHeight/2)))
-            if cur_x > x+(screenWidth/2 - fovWidth/2) and cur_x < x+(screenWidth/2 - fovWidth/2)+w and cur_y > y+(screenHieght/2 - fovHeight/2) and cur_y < y+(screenHieght/2 - fovHeight/2)+h and shootLockedTarget == True:
+            if cur_x > x+(screenWidth/2 - 80) and cur_x < x+(screenWidth/2 - 80)+w and cur_y > y+(screenHieght/2 - 80) and cur_y < y+(screenHieght/2 - 80)+h and shootLockedTarget == True:
                 pyautogui.click()
+
+    fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
+    if drawOnScreen:
+        drawText('Detection FPS: ' + str(int(fps)),150,25,backgroundColor=fuchsia, textColor=green, textSize=32)
+    if counter > 0:
+        drawText(toggleText,screenWidth/2,75,backgroundColor=fuchsia, textColor=(0,255,0), textSize=64)
+        counter -= 1
+    pygame.display.update()
     cv2.waitKey(1)
     if shotCounter > 0:
         shotCounter -= 1
-    
-    
