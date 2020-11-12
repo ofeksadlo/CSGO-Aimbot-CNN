@@ -46,7 +46,7 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    the small fov for detecting opponents.</br>
    You can tweak FOV but both values has to be the same.</br>
    And be a multiple of 32.</br>
-   I found the limit to be 128x128. Getting 60 fps on my cpu!</br>
+   I found the limit to be 96x96. Getting 60 fps on my cpu!</br>
    below that and the detections won't work.</br>
 *  The higher the sensetivity the more snappy the aimbot is.</br>
    After some testing I've found the middle ground to be 1.5 on 800dpi.
