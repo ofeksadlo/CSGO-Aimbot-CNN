@@ -57,7 +57,7 @@ def set_pos(pos):
 
 pyautogui.PAUSE = 0
 
-fovSize = 128
+fovSize = 320
 screenWidth = 1920
 screenHeight = 1080
 
