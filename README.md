@@ -60,7 +60,8 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
    the detection lost him. The aimbot will lock to the new closest target.</br>
    I plan on solving this and improve performance at the same time using tracking method.</br>
    I already gave a try to the existing tracking methods opencv provides. But</br>
-   they aren't good enough so I'm gonna implement my own.
+   they aren't good enough so I'm gonna implement my own.</br>
+   But for now I really lowered the FOV to avoid accidents.
 
 # Future plans
 - [x] Adding support for aiming on terrorist opponents.
