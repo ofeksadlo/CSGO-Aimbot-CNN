@@ -78,4 +78,6 @@ disable in windows mouse setting the Enhance pointer precision option.</br>
 - [ ] Improving results with Object Tracking
 # Disclaimer
 **This project is for educational purposes only.**</br>
+and it needs strong hardware to work efficiently.</br>
+Meaning it won't work well for most common users.</br>
 Developed in [Python 3.7.7 Windows x86-64](https://www.python.org/ftp/python/3.7.7/python-3.7.7-amd64.exe)
